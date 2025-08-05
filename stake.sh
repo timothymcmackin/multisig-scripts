@@ -47,7 +47,7 @@ counter3=$((counter + 1))
 
 branch=$(octez-client rpc get chains/main/blocks/head~2/hash)
 
-stake_operation_json="{ \"branch\": \"BLB32s8H2AkJKrbdMSGQfLDcVntXMVuaiLoRjNtKN6FEXH6QARQ\",
+stake_operation_json="{ \"branch\": $branch,
       \"contents\":
         [ { \"kind\": \"transaction\",
             \"source\": \"$address\", \"fee\": \"808\",
