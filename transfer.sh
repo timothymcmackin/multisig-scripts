@@ -47,9 +47,11 @@ operation_json="{ \"branch\":
 
 quoted_operation="${operation_json}"
 # echo $quoted_operation
-operation_cmd="octez-client rpc post /chains/main/blocks/head/helpers/forge/operations with '$quoted_operation'"
+# operation_cmd="octez-client rpc post /chains/main/blocks/head/helpers/forge/operations with '$quoted_operation'"
+operation_cmd="octez-codec encode alpha.operation from '$quoted_operation'"
 echo $operation_cmd
-operation_bytes=$(eval "$operation_cmd" | tr -d '"')
+operation_full_bytes=$(eval "$operation_cmd" | tr -d '"')
+operation_bytes=${operation_full_bytes:0:$((${#operation_full_bytes} - 128))}
 # echo $operation_bytes
 operation_bytes_03="03$operation_bytes"
 operation_bytes_0x03="0x03$operation_bytes"
@@ -91,7 +93,8 @@ signed_operations_json="{ \"branch\":
 
 # echo $signed_operations_json
 signed_operations_quoted="${signed_operations_json}"
-signed_operations_cmd="octez-client rpc post /chains/main/blocks/head/helpers/forge/signed_operations with '$signed_operations_quoted'"
+# signed_operations_cmd="octez-client rpc post /chains/main/blocks/head/helpers/forge/signed_operations with '$signed_operations_quoted'"
+signed_operations_cmd="octez-codec encode alpha.operation from '$signed_operations_quoted'"
 
 echo $signed_operations_cmd
 # echo "octez-client rpc post"
